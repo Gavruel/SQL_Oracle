@@ -1,0 +1,22 @@
+
+DECLARE
+  v_table_name VARCHAR2(30) := 'pedido_novos'; -- 'nome_da_tabela'
+  v_column_name VARCHAR2(30) := 'cod_pedido'; --'nome_da_coluna'
+  v_value VARCHAR2(30) := 122355; -- 'valor_a_ser_inserido'
+BEGIN
+  EXECUTE IMMEDIATE 'INSERT INTO ' || v_table_name || '(' || v_column_name || ') VALUES (:1)'
+    USING v_value;
+END;
+/
+
+
+DECLARE
+V_TABLE_NAME VARCHAR2(30);
+BEGIN
+  FOR t IN (SELECT table_name FROM USER_TABLES WHERE table_name LIKE 'AAAA%') LOOP
+    v_table_name := t.table_name;
+    EXECUTE IMMEDIATE 'DROP TABLE ' || v_table_name;
+    DBMS_OUTPUT.PUT_LINE('Tabela ' || v_table_name || ' deletada com sucesso.');
+  END LOOP;
+END;
+
